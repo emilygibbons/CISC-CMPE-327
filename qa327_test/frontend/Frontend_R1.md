@@ -21,7 +21,7 @@ Actions:
 
 -   open /logout (to invalidate any logged-in sessions that may exist)
 -   open /login
--  validate that current page contains  `#`  element
+-  validate that current page contains  `#login-message`  element
 
 #### Test Case R1.2 - the login page has a message that by default says 'please login'
 Actions:
