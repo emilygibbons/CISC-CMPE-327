@@ -24,7 +24,6 @@ def register_post():
     password2 = request.form.get('password2')
     error_message = None
 
-
     if password != password2:
         error_message = "The passwords do not match"
 
@@ -57,7 +56,15 @@ def login_post():
     email = request.form.get('email')
     password = request.form.get('password')
     user = bn.login_user(email, password)
-    if user:
+    error_message = None
+
+    if not (any(x.isupper() for x in password) and any(x.islower() for x in password)
+            and len(password) >= 6 and set('[~!@#$%^&*()_+{}":;\']+$').intersection(password)):
+        error_message = "Password incorrect format"
+
+    if error_message:
+        return render_template('login.html', message=error_message)
+    elif user:
         session['logged_in'] = user.email
         """
         Session is an object that contains sharing information 
