@@ -23,6 +23,16 @@ class User(db.Model):
     name = db.Column(db.String(1000))
 
 
+class Ticket(db.Model):
+    """
+    A user model which defines the sql table
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(60), unique=False)
+    price = db.Column(db.Integer, primary_key=False)
+    date = db.Column(db.String(8))
+
+
 # it creates all the SQL tables if they do not exist
 with app.app_context():
     db.create_all()
