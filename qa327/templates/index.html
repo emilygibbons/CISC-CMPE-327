@@ -13,9 +13,28 @@
 <div id="tickets">
 {% for ticket in tickets %}
     <div>
-        <h4>{{ ticket.name }} {{ ticket.price }}</h4>
+        <h4>{{ ticket.name }} {{ ticket.price }} {{ ticket.date }}</h4>
     </div>
 {% endfor %}
+</div>
+<h2> Buy Now </h2>
+<div id="buy">
+    <form method="post">
+        <div class="form-group">
+            <label for="name">Name of Ticket</label>
+            <input class="form-control" name="name" id="name" required>
+            <label for="quantity">Quantity of Ticket </label>
+            <input class="form-control" name="quantity" id="quantity" required>
+            <input class="btn btn-lg btn-primary" type="submit" id="btn-submit" value="Submit">
+        </div>
+    </form>
+</div>
+
+<h2> Account Balance </h2>
+<div id="balance">
+    <div>
+        <h4>{{ balance }}</h4>
+    </div>
 </div>
 
 <a href='/logout'>logout</a>

@@ -50,4 +50,15 @@ def register_user(email, name, password, password2):
 
 
 def get_all_tickets():
-    return []
+
+    test_tickets = [
+    {'name': 'test1', 'price':'100', 'date': 20201220},
+    {'name': 'test2', 'price': '50'},
+    {'name': 'test3', 'price': '20'}
+    ]
+    return test_tickets
+
+def get_balance():
+
+    test_balance = 1000
+    return test_balance
