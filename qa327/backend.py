@@ -62,3 +62,5 @@ def get_balance():
 
     test_balance = 1000
     return test_balance
+
+def buy_ticket():
