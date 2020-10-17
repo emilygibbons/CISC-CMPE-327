@@ -60,11 +60,4 @@ def get_ticket(id):
 
 
 def get_all_tickets():
-
-    test_tickets = [
-        {'name': 'test1', 'price': '100', 'date': '20200109'},
-        {'name': 'test2', 'price': '69'},
-        {'name': 'test3', 'price': '76'}
-    ]
-
-    return test_tickets
+    return []
