@@ -69,7 +69,7 @@ Actions:
 -   enter test_user's email into element  `#email`
 -   enter test_user's password into element  `#password`
 -   validate that current page contains  `#submit`  button
--   validate that  `#submit`  button points to `#http://127.0.0.1:8081/`
+-   validate that  `#submit`  button points to `/`
 
 #### Test case R1.6 - Email and password both cannot be empty
 Mocking:
