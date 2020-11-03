@@ -63,8 +63,7 @@ def login_post():
     if not checkEmailFormat(email):
         error_message = "email/password format is incorrect."
 
-    if not (any(x.isupper() for x in password) and any(x.islower() for x in password)
-            and len(password) >= 6 and set('[~!@#$%^&*()_+{}":;\']+$').intersection(password)):
+    if not (checkPasswordFormat(password)):
         error_message = "email/password format is incorrect."
 
     if error_message:
@@ -135,19 +134,20 @@ def checkEmailFormat(email):
     else:
         return False
 
+
 def checkPasswordFormat(password):
     reg = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{6,20}$"
-      
-    # compiling regex 
-    pat = re.compile(reg) 
-      
-    # searching regex                  
-    mat = re.search(pat, password) 
-      
-    # validating conditions 
-    if mat: 
-        return True 
-    else: 
+
+    # compiling regex
+    pat = re.compile(reg)
+
+    # searching regex
+    mat = re.search(pat, password)
+
+    # validating conditions
+    if mat:
+        return True
+    else:
         return False
 
 
