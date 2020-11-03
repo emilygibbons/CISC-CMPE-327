@@ -1,6 +1,7 @@
 from flask import render_template, request, session, redirect
 from qa327 import app
 import qa327.backend as bn
+import re
 
 """
 This file defines the front-end part of the service.
@@ -24,20 +25,21 @@ def register_post():
     password2 = request.form.get('password2')
     error_message = None
 
-    if password != password2:
-        error_message = "The passwords do not match"
-
-    elif len(email) < 1:
-        error_message = "Email format error"
-
-    elif len(password) < 1:
-        error_message = "Password not strong enough"
+    if (not checkEmailFormat(email)):
+        error_message = "email format is incorrect."
+    elif (not checkPasswordFormat(password)):
+        error_message = "password format (1) incorrect."
+    elif (not checkPasswordFormat(password2)):
+        error_message = "password format (2) incorrect."
+    elif (password != password2):
+        error_message = "passwords not equal"
     else:
         user = bn.get_user(email)
         if user:
             error_message = "User exists"
         elif not bn.register_user(email, name, password, password2):
             error_message = "Failed to store user info."
+
     # if there is any error messages when registering new user
     # at the backend, go back to the register page.
     if error_message:
@@ -58,9 +60,12 @@ def login_post():
     user = bn.login_user(email, password)
     error_message = None
 
+    if not checkEmailFormat(email):
+        error_message = "email/password format is incorrect."
+
     if not (any(x.isupper() for x in password) and any(x.islower() for x in password)
             and len(password) >= 6 and set('[~!@#$%^&*()_+{}":;\']+$').intersection(password)):
-        error_message = "Password incorrect format"
+        error_message = "email/password format is incorrect."
 
     if error_message:
         return render_template('login.html', message=error_message)
@@ -122,6 +127,28 @@ def authenticate(inner_function):
 
     # return the wrapped version of the inner_function:
     return wrapped_inner
+
+
+def checkEmailFormat(email):
+    if re.match("\A(?P<name>[\w\-_]+)@(?P<domain>[\w\-_]+).(?P<toplevel>[\w]+)\Z", email, re.IGNORECASE):
+        return True
+    else:
+        return False
+
+def checkPasswordFormat(password):
+    reg = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{6,20}$"
+      
+    # compiling regex 
+    pat = re.compile(reg) 
+      
+    # searching regex                  
+    mat = re.search(pat, password) 
+      
+    # validating conditions 
+    if mat: 
+        return True 
+    else: 
+        return False
 
 
 @app.route('/')

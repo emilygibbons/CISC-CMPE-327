@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 """
 This file defines all backend logic that interacts with database and other services
 """
+# NOTE: IM NOT SURE register_user IS RIGHT WILL COME BACK TO IT LATER
 
 
 def get_user(email):
@@ -40,13 +41,14 @@ def register_user(email, name, password, password2):
     :return: an error message if there is any, or None if register succeeds
     """
 
+    # NOTE: IM NOT SURE IF THIS IS RIGHT WILL COME BACK TO IT LATER the retrun value maybe shouldnt be true.
     hashed_pw = generate_password_hash(password, method='sha256')
     # store the encrypted password rather than the plain password
     new_user = User(email=email, name=name, password=hashed_pw)
 
     db.session.add(new_user)
     db.session.commit()
-    return None
+    return True
 
 
 def get_ticket(id):
