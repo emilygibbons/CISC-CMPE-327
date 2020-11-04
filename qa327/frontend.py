@@ -27,6 +27,8 @@ def register_post():
 
     if (not checkEmailFormat(email)):
         error_message = "email format is incorrect."
+    elif (not checkUserNameFormat(name)):
+        error_message = "username format incorrect."
     elif (not checkPasswordFormat(password)):
         error_message = "password format (1) incorrect."
     elif (not checkPasswordFormat(password2)):
@@ -36,8 +38,8 @@ def register_post():
     else:
         user = bn.get_user(email)
         if user:
-            error_message = "User exists"
-        elif not bn.register_user(email, name, password, password2):
+            error_message = "thhis email has been ALREADY used"
+        elif not bn.register_user(email, name, password, password2, 5000.00):
             error_message = "Failed to store user info."
 
     # if there is any error messages when registering new user
@@ -84,7 +86,7 @@ def login_post():
         # code 303 is to force a 'GET' request
         return redirect('/', code=303)
     else:
-        return render_template('login.html', message='login failed')
+        return render_template('login.html', message='email/password combination incorrect')
 
 
 @app.route('/logout')
@@ -129,6 +131,13 @@ def authenticate(inner_function):
 
 
 def checkEmailFormat(email):
+    """
+    :param email: users entered email
+
+    Take the email are run it through a regex to see if it meets specifications.
+    If it does then return true, if it doesnt then return false.
+    """
+
     if re.match("\A(?P<name>[\w\-_]+)@(?P<domain>[\w\-_]+).(?P<toplevel>[\w]+)\Z", email, re.IGNORECASE):
         return True
     else:
@@ -136,6 +145,13 @@ def checkEmailFormat(email):
 
 
 def checkPasswordFormat(password):
+    """
+    :param password: users entered password
+
+    Take the password are run it through a regex to see if it meets specifications.
+    If it does then return true, if it doesnt then return false.
+    """
+
     reg = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{6,20}$"
 
     # compiling regex
@@ -146,6 +162,14 @@ def checkPasswordFormat(password):
 
     # validating conditions
     if mat:
+        return True
+    else:
+        return False
+
+
+def checkUserNameFormat(u):
+    u.startswith(" ")
+    if bool(re.match('^[a-zA-Z0-9]+$', u)) and (2 < len(u) < 20) and not u.startswith(" ") and not u.endswith(" "):
         return True
     else:
         return False
