@@ -25,20 +25,21 @@ def register_post():
     password2 = request.form.get('password2')
     error_message = None
 
-    if (not checkEmailFormat(email)):
+    # checks validity of email and passwords
+    if (not bn.checkEmailFormat(email)):
         error_message = "email format is incorrect."
-    elif (not checkUserNameFormat(name)):
+    elif (not bn.checkUserNameFormat(name)):
         error_message = "username format incorrect."
-    elif (not checkPasswordFormat(password)):
+    elif (not bn.checkPasswordFormat(password)):
         error_message = "password format (1) incorrect."
-    elif (not checkPasswordFormat(password2)):
+    elif (not bn.checkPasswordFormat(password2)):
         error_message = "password format (2) incorrect."
     elif (password != password2):
         error_message = "passwords not equal"
     else:
         user = bn.get_user(email)
         if user:
-            error_message = "thhis email has been ALREADY used"
+            error_message = "this email has been ALREADY used"
         elif not bn.register_user(email, name, password, password2, 5000.00):
             error_message = "Failed to store user info."
 
@@ -62,10 +63,8 @@ def login_post():
     user = bn.login_user(email, password)
     error_message = None
 
-    if not checkEmailFormat(email):
-        error_message = "email/password format is incorrect."
-
-    if not (checkPasswordFormat(password)):
+    # checks that email and password format are correct
+    if not bn.checkEmailFormat(email) or not bn.checkPasswordFormat(password):
         error_message = "email/password format is incorrect."
 
     if error_message:
@@ -128,51 +127,6 @@ def authenticate(inner_function):
 
     # return the wrapped version of the inner_function:
     return wrapped_inner
-
-
-def checkEmailFormat(email):
-    """
-    :param email: users entered email
-
-    Take the email are run it through a regex to see if it meets specifications.
-    If it does then return true, if it doesnt then return false.
-    """
-
-    if re.match("\A(?P<name>[\w\-_]+)@(?P<domain>[\w\-_]+).(?P<toplevel>[\w]+)\Z", email, re.IGNORECASE):
-        return True
-    else:
-        return False
-
-
-def checkPasswordFormat(password):
-    """
-    :param password: users entered password
-
-    Take the password are run it through a regex to see if it meets specifications.
-    If it does then return true, if it doesnt then return false.
-    """
-
-    reg = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{6,20}$"
-
-    # compiling regex
-    pat = re.compile(reg)
-
-    # searching regex
-    mat = re.search(pat, password)
-
-    # validating conditions
-    if mat:
-        return True
-    else:
-        return False
-
-
-def checkUserNameFormat(u):
-    u.startswith(" ")
-    if bool(re.match('^[a-zA-Z0-9]+$', u)) and (2 < len(u) < 20) and not u.startswith(" ") and not u.endswith(" "):
-        return True
-    else:
-        return False
 
 
 @app.route('/')
