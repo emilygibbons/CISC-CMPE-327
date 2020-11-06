@@ -55,3 +55,52 @@ Logs the user out of the system.
 Authenticates that the user is able to enter a new homepage session.
 ### profile()
 Gets all tickets from ticket list to be displayed on users homepage.
+
+```mermaid
+classDiagram
+    __init__ <-- Models
+    __init__ <-- frontend
+    __init__ <-- __main__
+    Models <-- User
+    Models <-- Ticket
+    User <-- backend
+    Ticket <-- backend
+    backend <-- frontend: 
+    
+    class Models{
+    app.app_context()
+    }
+    class User{
+      +Int ID
+      +Int balance
+      +String email
+      +String password
+      +String name
+    }
+    class Ticket{
+      +Int ID
+      +Int price
+      +String name
+      +String date
+    }
+    class backend{
+      +get_user()
+      +login_user()
+      +register_user()
+      +get_ticket()
+      +get_all_tickets()
+      +checkEmailFormat()
+      +checkPasswordFormat()
+      +checkUserNameFormat()
+    }
+    class frontend{
+      +register_get()
+      +register_post()
+      +login_get()
+      +login_post()
+      +logout()
+      +authenticate()
+      +wrapped_inner()
+      + profile()
+    }
+```
