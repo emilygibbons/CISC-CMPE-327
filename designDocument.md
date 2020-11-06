@@ -2,7 +2,7 @@
 *Class and method descriptions.*
 
 ## Class Diagram
-![alt text](https://github.com/emilygibbons/CISC-CMPE-327/blob/adamBranchA2/pictures/mermaid-diagram-20201106121109.png)
+![alt text](https://github.com/emilygibbons/CISC-CMPE-327/blob/master/pictures/mermaid-diagram-20201106121109.png)
 
 ## \_\_init\_\_
 
