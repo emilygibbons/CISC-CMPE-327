@@ -1,6 +1,9 @@
 # Seet Geek Design Document
 *Class and method descriptions.*
 
+## Class Diagram
+![alt text](https://github.com/emilygibbons/CISC-CMPE-327/blob/adamBranchA2/pictures/mermaid-diagram-20201106121109.png)
+
 ## \_\_init\_\_
 
 This class initializes the application and sets it up to run with Flask.
