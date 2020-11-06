@@ -1,6 +1,7 @@
 from flask import render_template, request, session, redirect
 from qa327 import app
 import qa327.backend as bn
+import re
 
 """
 This file defines the front-end part of the service.
@@ -24,20 +25,24 @@ def register_post():
     password2 = request.form.get('password2')
     error_message = None
 
-    if password != password2:
-        error_message = "The passwords do not match"
-
-    elif len(email) < 1:
-        error_message = "Email format error"
-
-    elif len(password) < 1:
-        error_message = "Password not strong enough"
+    # checks validity of email and passwords
+    if (not bn.checkEmailFormat(email)):
+        error_message = "email format is incorrect."
+    elif (not bn.checkUserNameFormat(name)):
+        error_message = "username format incorrect."
+    elif (not bn.checkPasswordFormat(password)):
+        error_message = "password format (1) incorrect."
+    elif (not bn.checkPasswordFormat(password2)):
+        error_message = "password format (2) incorrect."
+    elif (password != password2):
+        error_message = "passwords not equal"
     else:
         user = bn.get_user(email)
         if user:
-            error_message = "User exists"
-        elif not bn.register_user(email, name, password, password2):
+            error_message = "this email has been ALREADY used"
+        elif not bn.register_user(email, name, password, password2, 5000.00):
             error_message = "Failed to store user info."
+
     # if there is any error messages when registering new user
     # at the backend, go back to the register page.
     if error_message:
@@ -58,9 +63,9 @@ def login_post():
     user = bn.login_user(email, password)
     error_message = None
 
-    if not (any(x.isupper() for x in password) and any(x.islower() for x in password)
-            and len(password) >= 6 and set('[~!@#$%^&*()_+{}":;\']+$').intersection(password)):
-        error_message = "Password incorrect format"
+    # checks that email and password format are correct
+    if not bn.checkEmailFormat(email) or not bn.checkPasswordFormat(password):
+        error_message = "email/password format is incorrect."
 
     if error_message:
         return render_template('login.html', message=error_message)
@@ -80,7 +85,7 @@ def login_post():
         # code 303 is to force a 'GET' request
         return redirect('/', code=303)
     else:
-        return render_template('login.html', message='login failed')
+        return render_template('login.html', message='email/password combination incorrect')
 
 
 @app.route('/logout')
