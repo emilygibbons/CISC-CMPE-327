@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Page not Found{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<h1 id='message'>{{message}}</h1>
+<h3>This is not the page you are looking for.</h3>
+{% endblock %}
