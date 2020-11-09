@@ -60,7 +60,13 @@ def get_ticket(id):
 
 
 def get_all_tickets():
-    return []
+    """"
+    Returns all tickets available to be purchased.
+    """
+
+    tickets = Ticket.query.all()
+    
+    return tickets
 
 def checkEmailFormat(email):
     """
@@ -87,12 +93,15 @@ def checkPasswordFormat(password):
     reg = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{6,20}$"
 
     # compiling regex
+
     pat = re.compile(reg)
 
     # searching regex
+
     mat = re.search(pat, password)
 
     # validating conditions
+
     if mat:
         return True
     else:
@@ -111,3 +120,56 @@ def checkUserNameFormat(u):
         return True
     else:
         return False
+
+def sell_ticket(quantity, name, email, price, expiration_date):
+    """
+    :Param quantity: Quantity of tickets that are being sold.
+    :Param name: The name of the ticket.
+    :Param email: The owners email that is selling the ticket.
+    :Param price: The price of the ticket being sold.
+    :Param expiration date: The date the ticket expires.
+
+    Takes the information inputed in the form on the website assigns and adds it to the list
+    of available tickets in the data base.
+    """
+    for i in range(int(quantity)):
+         new_ticket = Ticket(name=name,email=email, price=price, date=expiration_date)
+         db.session.add(new_ticket)
+         db.session.commit()
+    return True
+
+
+def buy_ticket(name, quantity):
+    """
+    :Param quantity: Quantity of tickets that are being bought.
+    :Param name: The name of the ticket that is being bought.
+
+    Takes the information inputed in the form on the frontend and,for now, deletes quantity amount
+    of tickets from the list of available tickets.
+    """
+    
+    for i in range(int(quantity)):
+         ticket = Ticket.query.filter_by(name=name).first()
+         db.session.delete(ticket)
+         db.session.commit()
+    return True
+
+
+def delete_ticket(quantity, name, price, expiration, email):
+    """
+    :Param quantity: Quantity of tickets that are being sold.
+    :Param name: The name of the ticket.
+    :Param email: The owners email that is selling the ticket.
+    :Param price: The price of the ticket being sold.
+    :Param expiration date: The date the ticket expires.
+
+    Takes the params and searches the database for a Ticket object that matches the email price and date.
+    Uses a for loop to delete in range quantity if multiple tickets exist, because quantity is not stored as
+    in a Ticket object.
+    """
+    
+    for i in range(int(quantity)):
+         ticket = Ticket.query.filter_by(name=name, price=price, date=expiration, email=email).first()
+         db.session.delete(ticket)
+         db.session.commit()
+    return True
