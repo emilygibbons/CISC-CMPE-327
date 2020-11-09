@@ -55,7 +55,7 @@ def get_ticket(id):
     :param id: the id of the ticket
     :return: a ticket that has the matched ticket id
     """
-    ticket = ticket.query.filter_by(id=id).first()
+    ticket = Ticket.query.filter_by(id=id).first()
     return ticket
 
 
