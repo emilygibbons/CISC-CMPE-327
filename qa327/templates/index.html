@@ -12,7 +12,7 @@
 
 <h2>Here are all available tickets</h2>
 
-<div id="tickets">
+<div id="tickets-header">
     {% for ticket in tickets %}
     <div>
         <h4>Quantity: 1 Owner's email: {{ ticket.email}} Price: ${{ ticket.price }} Expiration Date: {{ ticket.date }} Ticket name: {{ticket.name}}</h4>
