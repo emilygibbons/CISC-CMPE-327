@@ -14,7 +14,7 @@ The html templates are stored in the 'templates' folder.
 @app.route('/register', methods=['GET'])
 def register_get():
     # templates are stored in the templates folder
-    return render_template('register.html', message='')
+    return render_template('register.html', message='Please enter info below')
 
 
 @app.route('/register', methods=['POST'])
@@ -31,9 +31,9 @@ def register_post():
     elif (not bn.checkUserNameFormat(name)):
         error_message = "username format incorrect."
     elif (not bn.checkPasswordFormat(password)):
-        error_message = "password format (1) incorrect."
+        error_message = "password format incorrect."
     elif (not bn.checkPasswordFormat(password2)):
-        error_message = "password format (2) incorrect."
+        error_message = "password format incorrect."
     elif (password != password2):
         error_message = "passwords not equal"
     else:
