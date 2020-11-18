@@ -35,13 +35,12 @@ test_user = User(
 # Mock some sample tickets
 
 test_tickets = [
-    {'name': 't1', 'price': '100', 'email': 'test_frontend@test.com', 'date': '20200901'}
+    {'name': 't1', 'price': 100, 'email': 'test_frontend@test.com', 'date': '20200901'}
 ]
 
 
 class FrontEndHomePageTesting(BaseCase):
-    @patch('qa327.backend.get_user', return_value = test_user)
-   
+    @patch('qa327.backend.get_user', return_value=test_user)
     def login(self, *_):
         self.open(base_url + '/login')
         self.type("#email", "test_frontend@test.com")
@@ -67,16 +66,17 @@ class FrontEndHomePageTesting(BaseCase):
         self.login()
         self.assert_element("#welcome-header")
         self.assert_text("Welcome test_frontend!", "#welcome-header")
-        
-    
-    #Test Case R3.3 - The page shows user balance
+
+    # Test Case R3.3 - The page shows user balance
+
     def test_userbalance(self):
         # test if the page loads correctly
         self.login()
         self.assert_element("#balance-paragraph")
-        self.assert_text("Balance: $" + str(test_user.balance), '#balance-paragraph') #need to use a variable
+        self.assert_text("Balance: $" + str(test_user.balance),
+                         '#balance-paragraph')  # need to use a variable
 
-    #Test Case R3.4 - The page shows a logout link, pointing to /logout
+    # Test Case R3.4 - The page shows a logout link, pointing to /logout
     def test_logout(self):
         # test if the page loads correctly
         self.login()
@@ -84,21 +84,22 @@ class FrontEndHomePageTesting(BaseCase):
         self.assert_element('#message')
         self.assert_text('Please login', '#message')
 
-    #Test Case R3.5 - The page lists all available tickets, including quantity, owner's email, and the price, for unexpired tickets
-    @patch('qa327.backend.get_all_tickets', return_value=None)
-    @patch('qa327.backend.sell_ticket', return_value=True)
+    # Test Case R3.5 - The page lists all available tickets, including quantity, owner's email, and the price, for unexpired tickets
+    # @patch('qa327.backend.get_all_tickets', return_value=None)
+    # @patch('qa327.backend.sell_ticket', return_value=True)
     def test_ticketdisplay(self, *_):
-        #test if the page loads correctly
+        # test if the page loads correctly
         self.login()
         self.assert_element("#tickets-header")
-        self.type("#quantity", "1")
-        self.type("#name", "t1")
-        self.type("#price", "100")
-        self.type("#expiration_date", "20200901")
-        self.click('input[value="Sell Now"]')
-        self.assert_text("Quantity: 1" + " Owner's email: "+ test_tickets.email+ " Price: $"+ test_tickets.price + " Expiration Date: "+ test_tickets.date+ " Ticket name: "+ test_tickets.name, '#tickets-header') 
-        
-    #Test Case R3.6 - The page contains a form that a user can submit new tickets to sell. Fields:name, quantity, price, expiration date
+        self.type("#sell-quantity", "1")
+        self.type("#sell-name", "t1")
+        self.type("#sell-price", "100")
+        self.type("#sell-expiration-date", "20200901")
+        self.click('input[id="btn-sell-submit"]')
+        self.assert_text("Quantity: 1" + " Owner's email: " + test_tickets.email + " Price: $" + str(test_tickets.price) +
+                         " Expiration Date: " + test_tickets.date + " Ticket name: " + test_tickets.name, '#tickets-header')
+
+    # Test Case R3.6 - The page contains a form that a user can submit new tickets to sell. Fields:name, quantity, price, expiration date
     def test_sellform(self):
         # test if the page loads correctly
         self.login()
@@ -106,4 +107,3 @@ class FrontEndHomePageTesting(BaseCase):
         self.assert_element('#name')
         self.assert_element('#price')
         self.assert_element('#expiration_date')
-        
