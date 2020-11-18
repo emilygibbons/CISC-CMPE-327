@@ -22,7 +22,8 @@ Annotate @patch before unit tests can mock backend methods (for that testing fun
 """
 
 
-# Moch a sample user
+# Mock a sample user
+
 test_user = User(
     email='test_frontend@test.com',
     name='test_frontend',
@@ -31,7 +32,8 @@ test_user = User(
 
 )
 
-# Moch some sample tickets
+# Mock some sample tickets
+
 test_tickets = [
     {'name': 't1', 'price': '100', 'email': 'test_frontend@test.com', 'date': '20200901'}
 ]
@@ -47,11 +49,14 @@ class FrontEndHomePageTest(BaseCase):
         # and verify if the tickets are correctly listed.
 
         # open login page
+
         self.open(base_url + '/login')
         # fill email and password
+
         self.type("#email", "test_frontend@test.com")
         self.type("#password", "Testfrontend123!")
         # click enter button
+
         self.click('input[type="submit"]')
 
         # after clicking on the browser (the line above)
@@ -64,13 +69,16 @@ class FrontEndHomePageTest(BaseCase):
         # rather than running that program. (see @ annotations above)
 
         # open home page
+
         self.open(base_url)
         # test if the page loads correctly
+
         self.assert_element("#welcome-header")
         self.assert_text("Welcome test_frontend", "#welcome-header")
         self.assert_element("#tickets-header")
 
         # ticket formatL Quantity: 1 Owner's email: Price: $100 Expiration Date: Ticket name: t1
+
         self.assert_text(
             "Quantity: 1 Owner's email: test_frontend@test.com Price: $100 Expiration Date: 20200901 Ticket name: t1", "#tickets-header")
 
@@ -81,11 +89,15 @@ class FrontEndHomePageTest(BaseCase):
 
         # open login page
         self.open(base_url + '/login')
+
         # fill wrong email and password
+
         self.type("#email", "test_frontend@test.com")
         self.type("#password", "wrong_password")
         # click enter button
+
         self.click('input[type="submit"]')
         # make sure it shows proper error message
+
         self.assert_element("#message")
         self.assert_text("email/password format is incorrect.", "#message")
