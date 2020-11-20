@@ -7,6 +7,18 @@
 *.py[cod]
 *$py.class
 
+*.log
+
+*.pot
+
+*.pyc
+
+*/*/*/__pycache__/
+
+*/*/__pycache__/
+
+*/__pycache__/
+
 # C extensions
 *.so
 
