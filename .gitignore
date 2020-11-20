@@ -6,6 +6,8 @@
 /__pycache__/
 *.py[cod]
 *$py.class
+*.cpython-39.*
+*.cpython-39-pytest-5.*
 
 # C extensions
 *.so
