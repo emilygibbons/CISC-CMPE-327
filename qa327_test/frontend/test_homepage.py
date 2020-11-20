@@ -88,7 +88,6 @@ class FrontEndHomePageTesting(BaseCase):
         self.assert_text('Please login', '#message')
 
     # Test Case R3.5 - The page lists all available tickets, including quantity, owner's email, and the price, for unexpired tickets
-    
     @patch('qa327.backend.get_all_tickets', return_value= test_tickets)
     @patch('qa327.backend.get_user', return_value= test_user)
     def test_ticketdisplay(self, *_):
@@ -96,12 +95,7 @@ class FrontEndHomePageTesting(BaseCase):
         self.login()
         # verify on homepage
         self.assert_element("#tickets-header")
-        # put a test ticket up for sale
-       # self.type("#sell-quantity", "1")
-       # self.type("#sell-name", "t2")
-       # self.type("#sell-price", "100")
-       # self.type("#sell-expiration-date", "20200901")
-        #self.click('input[id="btn-sell-submit"]')
+       
         self.assert_text("Quantity: 1 Owner's email: test_frontend@test.com Price: $100 Expiration Date: 20200901 Ticket name: t1", "#tickets-header")
        
                         
