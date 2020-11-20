@@ -6,8 +6,17 @@
 /__pycache__/
 *.py[cod]
 *$py.class
-*.cpython-39.*
-*.cpython-39-pytest-5.*
+*.log
+
+*.pot
+
+*.pyc
+
+*/*/*/__pycache__/
+
+*/*/__pycache__/
+
+*/__pycache__/
 
 # C extensions
 *.so
