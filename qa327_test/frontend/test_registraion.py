@@ -22,7 +22,8 @@ Annotate @patch before unit tests can mock backend methods (for that testing fun
 """
 
 
-# Moch a sample user
+# Mock a sample user
+
 test_user = User(
     email='test_frontend@test.com',
     name='test_frontend',
@@ -31,7 +32,8 @@ test_user = User(
 
 )
 
-# Moch some sample tickets
+# Mock some sample tickets
+
 test_tickets = [
     {'name': 't1', 'price': '100', 'email': 'test_frontend@test.com', 'date': '20200901'}
 ]
@@ -42,17 +44,23 @@ class FrontEndHomePageTest(BaseCase):
     @patch('qa327.backend.get_user', return_value=test_user)
     def test_login_success(self, *_):
         # open login page
+
         self.open(base_url + '/login')
         # fill email and password
+
         self.type("#email", "test_frontend@test.com")
         self.type("#password", "Testfrontend123!")
         # click enter button
+
         self.click('input[type="submit"]')
         # open home page
+
         self.open(base_url)
         # test if the page loads correctly
+
         self.assert_element("#welcome-header")
         self.assert_text("Welcome test_frontend", "#welcome-header")
+
 
     # Test Case R2.2 - otherwise, show the user registration page
     def test_show_register(self, *_):
@@ -75,6 +83,7 @@ class FrontEndHomePageTest(BaseCase):
         self.assert_element('#password')
         self.assert_element('#name')
         self.assert_element('#password2')
+
 
     # TODO Test Case R2.4 - Test case has been taken care of by test R2.1
 
@@ -228,14 +237,18 @@ class FrontEndHomePageTest(BaseCase):
         # open register
         self.open(base_url + '/register')
         # fill wrong email and password
+
         self.type("#email", "test_frontend@test.com")
         self.type('#name', 'Bill')
         self.type("#password", "12")
         self.type("#password2", "12")
         # click enter button
+
         self.click('input[type="submit"]')
         # make sure it shows proper error message
+
         self.assert_element("#message")
+
         self.assert_text("password format incorrect.", "#message")
 
         # TOO LONG

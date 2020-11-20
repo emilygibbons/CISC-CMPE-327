@@ -148,22 +148,23 @@ def sell_post():
 
     # Gets the information needed from the form to create the Ticket object.
     email = session['logged_in']
-    quantity = request.form.get('quantity')
-    name = request.form.get('name')
-    price = request.form.get('price')
-    date = request.form.get('expiration_date')
+    quantity = request.form.get('sell-quantity')
+    name = request.form.get('sell-name')
+    price = request.form.get('sell-price')
+    date = request.form.get('sell-expiration-date')
 
     # submits the ticket into the database, which then displays in the available tickets.
     bn.sell_ticket(quantity, name, email, price, date)
 
     return redirect('/')  # redirects back to the users profile.
 
-
 @app.route('/buy', methods=['POST'])
 def buy_post():
     # Gets the information needed to "buy" the ticket. At this current stage it only deletes it for now..
-    name = request.form.get('name')
-    quantity = request.form.get('quantity')
+ 
+    name = request.form.get('buy-name')
+    quantity = request.form.get('buy-quantity')
+
 
     # evaulates which ticket you want to "buy" and deletes it from the database.
     bn.buy_ticket(name, quantity)
@@ -174,16 +175,16 @@ def buy_post():
 @app.route('/update', methods=['POST'])
 def update_post():
     email = session['logged_in']
-    quantity_old = request.form.get('quantity_old')
-    name_old = request.form.get('name_old')
-    price_old = request.form.get('price_old')
-    expiration_date_old = request.form.get('expiration_date_old')
+    quantity_old = request.form.get('quantity-old')
+    name_old = request.form.get('name-old')
+    price_old = request.form.get('price-old')
+    expiration_date_old = request.form.get('expiration-date-old')
 
     # New update changes.
-    quantity_new = request.form.get('quantity_new')
-    name_new = request.form.get('name_new')
-    price_new = request.form.get('price_new')
-    expiration_date_new = request.form.get('expiration_date_new')
+    quantity_new = request.form.get('quantity-new')
+    name_new = request.form.get('name-new')
+    price_new = request.form.get('price-new')
+    expiration_date_new = request.form.get('expiration-date-new')
 
    # delete the old tickets and remake the new ones.
 
