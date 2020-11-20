@@ -38,9 +38,9 @@ test_tickets = [
     {'name': 't1', 'price': 100, 'email': 'test_frontend@test.com', 'date': '20200901'}
 ]
 
-
 class FrontEndHomePageTesting(BaseCase):
     @patch('qa327.backend.get_user', return_value=test_user)
+    # log in the test user
     def login(self, *_):
         self.open(base_url + '/login')
         self.type("#email", "test_frontend@test.com")
@@ -60,50 +60,57 @@ class FrontEndHomePageTesting(BaseCase):
         self.assert_element('#message')
         self.assert_text('Please login', '#message')
 
-    # Test Case R3.2 - The page shows a header 'Welcome (user.name)
+    # Test Case R3.2 - The page shows a header 'Welcome (user.name)'
     def test_welcomemessage(self):
-        # test if the page loads correctly
+        # log in test user
         self.login()
+        # verify welcome message shown with user's name attached
         self.assert_element("#welcome-header")
         self.assert_text("Welcome test_frontend!", "#welcome-header")
 
     # Test Case R3.3 - The page shows user balance
-
     def test_userbalance(self):
-        # test if the page loads correctly
+        # log in test user
         self.login()
+        # verify balance is shown 
         self.assert_element("#balance-paragraph")
         self.assert_text("Balance: $" + str(test_user.balance),
-                         '#balance-paragraph')  # need to use a variable
+                         '#balance-paragraph') 
 
     # Test Case R3.4 - The page shows a logout link, pointing to /logout
     def test_logout(self):
-        # test if the page loads correctly
+        # log in test user
         self.login()
+        # logout user
         self.click_link_text('logout')
+        # verify redirected to login page
         self.assert_element('#message')
         self.assert_text('Please login', '#message')
 
     # Test Case R3.5 - The page lists all available tickets, including quantity, owner's email, and the price, for unexpired tickets
-    # @patch('qa327.backend.get_all_tickets', return_value=None)
-    # @patch('qa327.backend.sell_ticket', return_value=True)
+    
+    @patch('qa327.backend.get_all_tickets', return_value= test_tickets)
+    @patch('qa327.backend.get_user', return_value= test_user)
     def test_ticketdisplay(self, *_):
-        # test if the page loads correctly
+        # login as test user
         self.login()
+        # verify on homepage
         self.assert_element("#tickets-header")
-        self.type("#sell-quantity", "1")
-        self.type("#sell-name", "t1")
-        self.type("#sell-price", "100")
-        self.type("#sell-expiration-date", "20200901")
-        self.click('input[id="btn-sell-submit"]')
-        self.assert_text("Quantity: 1" + " Owner's email: " + test_tickets.email + " Price: $" + str(test_tickets.price) +
-                         " Expiration Date: " + test_tickets.date + " Ticket name: " + test_tickets.name, '#tickets-header')
-
+        # put a test ticket up for sale
+       # self.type("#sell-quantity", "1")
+       # self.type("#sell-name", "t2")
+       # self.type("#sell-price", "100")
+       # self.type("#sell-expiration-date", "20200901")
+        #self.click('input[id="btn-sell-submit"]')
+        self.assert_text("Quantity: 1 Owner's email: test_frontend@test.com Price: $100 Expiration Date: 20200901 Ticket name: t1", "#tickets-header")
+       
+                        
     # Test Case R3.6 - The page contains a form that a user can submit new tickets to sell. Fields:name, quantity, price, expiration date
     def test_sellform(self):
-        # test if the page loads correctly
+        # login as test user
         self.login()
-        self.assert_element('#quantity')
-        self.assert_element('#name')
-        self.assert_element('#price')
-        self.assert_element('#expiration_date')
+        # verify all attributes of tickets are shown on form
+        self.assert_element('#sell-quantity')
+        self.assert_element('#sell-name')
+        self.assert_element('#sell-price')
+        self.assert_element('#sell-expiration-date')
