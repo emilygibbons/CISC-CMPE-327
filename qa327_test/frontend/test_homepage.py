@@ -41,6 +41,15 @@ test_tickets = [
 
 class FrontEndHomePageTesting(BaseCase):
 
+    def login(self, *_):
+        self.open(base_url + '/login')
+        self.type("#email", "test_frontend@test.com")
+        self.type("#password", "Testfrontend123!")
+        self.click('input[type="submit"]')
+
+        # open home page
+        self.open(base_url)
+    
     # Test case for R.3.7
     @patch('qa327.backend.get_user', return_value=test_user)
     @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
