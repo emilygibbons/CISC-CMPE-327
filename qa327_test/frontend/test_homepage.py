@@ -40,7 +40,8 @@ test_tickets = [
 
 
 class FrontEndHomePageTesting(BaseCase):
-
+    @patch('qa327.backend.get_user', return_value=test_user)
+    @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
     def login(self, *_):
         self.open(base_url + '/login')
         self.type("#email", "test_frontend@test.com")
@@ -250,12 +251,4 @@ class FrontEndHomePageTesting(BaseCase):
         self.assert_text(
             "Quantity: 1 Owner's email: test_frontend@test.com Price: $100 Expiration Date: 20200901 Ticket name: t1", "#tickets-header")
         
-        
-    def login(self, *_):
-        self.open(base_url + '/login')
-        self.type("#email", "test_frontend@test.com")
-        self.type("#password", "Testfrontend123!")
-        self.click('input[type="submit"]')
 
-        # open home page
-        self.open(base_url)
