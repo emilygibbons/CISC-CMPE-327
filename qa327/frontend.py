@@ -158,6 +158,7 @@ def sell_post():
 
     return redirect('/')  # redirects back to the users profile.
 
+
 @app.route('/buy', methods=['POST'])
 def buy_post():
     # Gets the information needed to "buy" the ticket. At this current stage it only deletes it for now..
