@@ -34,7 +34,7 @@ test_user = User(
 
 # Moch some sample tickets
 test_tickets = [
-    {'name': 't1', 'price': 100, 'email': 'test_frontend@test.com', 'date': '20200901'}
+    {'name': 't1', 'price': '100', 'email': 'test_frontend@test.com', 'date': '20200901'}
 ]
 
 
@@ -97,7 +97,10 @@ class FrontEndHomePageTest(BaseCase):
         self.assert_element('#email')
         self.assert_element('#password')
 
+
     # TODO: Test case R1.5 - The login form can be submitted as a POST request to the current URL (/login)
+
+    # TODO: Test case has been taken care of by test R1.3
 
     # Test case R1.6 - Email and password both cannot be empty
     def test_email_password_empty(self, *_):

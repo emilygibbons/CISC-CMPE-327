@@ -21,6 +21,7 @@ class Registered(BaseCase):
 
     def register(self):
         # register new user
+
         self.open(base_url + '/register')
         self.type("#email", "test1@gmail.com")
         self.type("#name", "test1")
@@ -30,6 +31,7 @@ class Registered(BaseCase):
 
     def login(self):
         # Login to Swag Labs and verify that login was successful.
+
         self.open(base_url + '/login')
         self.type("#email", "test1@gmail.com")
         self.type("#password", "Testing123!")
