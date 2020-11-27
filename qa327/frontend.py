@@ -201,7 +201,10 @@ def buy_post():
 
 
 @app.route('/update', methods=['POST'])
-def update_post():
+@authenticate
+def update_post(user):
+    statusMessage = ''
+
     email = session['logged_in']
     quantity_old = request.form.get('quantity-old')
     name_old = request.form.get('name-old')
@@ -214,17 +217,38 @@ def update_post():
     price_new = request.form.get('price-new')
     expiration_date_new = request.form.get('expiration-date-new')
 
-   # delete the old tickets and remake the new ones.
+    # Checking validity of the 'new' parameters.
+    if not(checkTicketName(name_new)):
+       statusMessage = "Error: The updated name has to aplhanumeric, have no spaces in the begining or end and be between 6 and 60 characters."
 
-    bn.delete_ticket(quantity_old, name_old, price_old,
+    elif not(checkQuantity(quantity_new)):
+       statusMessage = "Error: The updated quantity of tickets needs to be between 1 and 100."
+
+    elif not(checkPrice(price_new)):
+       statusMessage = "Error: The updated price needs to be between $10 and $100."
+
+    elif not(checkDateFormat(expiration_date_new)):
+       statusMessage = "Error: The updated exipiration date needs to be follow the 'YYYYMMDD' format."
+
+    elif not(checkExpire(expiration_date_new)):
+       statusMessage = "Error: The updated exipiration date cannot be expired."
+
+    elif not(bn.verify_ticket(quantity_old,name_old, price_old, expiration_date_old,email)):
+       statusMessage = "Error: The entered ticket either does not exist or was entered incorrectly, please try again."
+
+    if statusMessage != '':
+       tickets = bn.get_all_tickets()
+       return render_template('index.html',user=user,tickets=tickets, updateMessage=statusMessage)
+    else:
+       # deletes old ticket(s).
+       bn.delete_ticket(quantity_old, name_old, price_old,
                      expiration_date_old, email)
-
-   # remake the requested new tickets.
-
-    bn.sell_ticket(quantity_new, name_new, email,
+       # submits new ticket(s) to the database.
+       bn.sell_ticket(quantity_new, name_new, email,
                    price_new, expiration_date_new)
-
-    return redirect('/')
+       #updates the ticket list. 
+       tickets = bn.get_all_tickets()
+       return render_template('index.html', user=user, tickets=tickets, updateMessage='Listing update successful')
 
 
 @app.errorhandler(404)
@@ -350,7 +374,10 @@ def checkDateFormat(d):
     If it does then return true, if it doesnt then return false.
     """
     try:
-       datetime.datetime.strptime(d, '%Y%m%d')
-       return True
+       if(len(d) == 8):
+          datetime.datetime.strptime(d, '%Y%m%d')
+          return True
+       else:
+          return False
     except ValueError:
        return False

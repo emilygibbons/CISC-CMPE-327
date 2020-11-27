@@ -59,7 +59,19 @@ def get_ticket(id):
     ticket = Ticket.query.filter_by(id=id).first()
     return ticket
 
-
+def verify_ticket(quantity,name,price,expiration_date,email):
+    """
+    Verifies the ticket(s) exist in the database by the given parameters
+    :param quantity: the quantity of the ticket
+    :return: a ticket that has the matched ticket id
+    """
+    tickets = Ticket.query.filter_by(
+            name=name, price=price, date=expiration_date, email=email).all()
+    if len(tickets) == int(quantity):
+       return True
+    else:
+       return False
+           
 def get_all_tickets():
     """"
     Returns all tickets available to be purchased.
