@@ -7,7 +7,6 @@
 {% block content %}
 <p id="balance-paragraph">Balance: ${{ user.balance }}</p>
 <h2 id="welcome-header">Welcome {{ user.name }}!</h2>
-<h4 id="message-status">{{message}}</h4>
 
 
 
@@ -22,6 +21,7 @@
 </div>
 
 <h2>Sell now!</h2>
+<h4 id="sellMessage">{{sellMessage}}</h4>
 <div id="sell-form">
     <form action="/sell" method="post">
         <div class="form-group">
@@ -39,6 +39,7 @@
 </div>
 
 <h2 id="buy-header">Buy now!</h2>
+<h4 id="buyMessage">{{buyMessage}}</h4>
 <div id="buy-form">
     <form action="/buy" method="post">
         <div class="form-group">
@@ -52,6 +53,7 @@
 </div>
 
 <h2 id="update-header">Update a current listing.</h2>
+<h4 id="updateMessage">{{updateMessage}}</h4>
 <div id="update-form">
     <form action ="/update" method="post">
         <div class="form-group">
