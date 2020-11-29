@@ -33,7 +33,6 @@ class Ticket(db.Model):
     price = db.Column(db.Integer, primary_key=False)
     date = db.Column(db.String(8))
     email = db.Column(db.String(60))
-   
 
 
 # it creates all the SQL tables if they do not exist
