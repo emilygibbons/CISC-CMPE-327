@@ -118,7 +118,15 @@ def buy_ticket(name, quantity):
         db.session.commit()
     return True
 
+
 def getTicketsPrice(name, quantity):
+    """
+    :Param quantity: Quantity of tickets that are being bought.
+    :Param name: The name of the ticket that is being bought.
+
+    Takes the information from the front end, and gets the overall price
+    of all the tickets looking to be purcased
+    """
     price = 0
 
     for i in range(int(quantity)):
@@ -153,6 +161,7 @@ def isEnoughTickets(name, quantity):
     """
     Verifies the amount of tickets are correct
     :param quantity: the quantity of the ticket
+    :param name: the name of the ticket
     :return: true or false
     """
     tickets = Ticket.query.filter_by(name=name).all()
@@ -161,7 +170,13 @@ def isEnoughTickets(name, quantity):
     else:
         return False
 
+
 def ticketExists(name):
+    """
+    Verifies that the tickets exist
+    :param name: the name of the ticket
+    :return: true or false
+    """
     tickets = Ticket.query.filter_by(name=name).all()
 
     if tickets:

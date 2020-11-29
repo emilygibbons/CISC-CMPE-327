@@ -186,22 +186,6 @@ def sell_post(user):
         return render_template('index.html', user=user, tickets=tickets, sellMessage='Listing posted successful')
 
 
-'''
-@app.route('/buy', methods=['POST'])
-def buy_post():
-    # Gets the information needed to "buy" the ticket. At this current stage it only deletes it for now..
-
-    name = request.form.get('buy-name')
-    quantity = request.form.get('buy-quantity')
-
-    # evaulates which ticket you want to "buy" and deletes it from the database.
-    bn.buy_ticket(name, quantity)
-
-    return redirect('/')  # redirects back to the users profile.
-
-'''
-
-
 @app.route('/buy', methods=['POST'])
 @authenticate
 def buy_post(user):
@@ -433,10 +417,26 @@ def checkDateFormat(d):
 
 
 def checkTicketExists(name):
+    """
+    :param name: takes ticket name
+
+    gets tickets name and then calls function on backend that will return
+    boolean based on whether the ticket exists or not
+    """
     return bn.ticketExists(name)
 
 
 def hasEnoughBalance(user, name, quantity):
+    """ 
+    :param user: user instance
+    :param name: name of ticket
+    :param quantitiy: amount of tickers
+
+    takes the name of tickets being purchased and the amount, calls funtion on backend
+    that returns the price of all the tickets combined. Then compares the users balance
+    to the price of all of the combined tickets including service charge as well as tax.
+    If the user has enough balance then return true, if not then return false.
+    """
 
     balance = 5000  # user.balance
     price = bn.getTicketsPrice(name, quantity)
