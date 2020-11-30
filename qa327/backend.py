@@ -92,7 +92,7 @@ def sell_ticket(quantity, name, email, price, expiration_date):
     :Param price: The price of the ticket being sold.
     :Param expiration date: The date the ticket expires.
 
-    Takes the information inputed in the form on the website assigns and adds it to the list
+    Takes the information inputted in the form on the website assigns and adds it to the list
     of available tickets in the data base.
     """
     for i in range(int(quantity)):
@@ -108,7 +108,7 @@ def buy_ticket(name, quantity):
     :Param quantity: Quantity of tickets that are being bought.
     :Param name: The name of the ticket that is being bought.
 
-    Takes the information inputed in the form on the frontend and,for now, deletes quantity amount
+    Takes the information inputted in the form on the frontend and,for now, deletes quantity amount
     of tickets from the list of available tickets.
     """
 
@@ -125,7 +125,7 @@ def getTicketsPrice(name, quantity):
     :Param name: The name of the ticket that is being bought.
 
     Takes the information from the front end, and gets the overall price
-    of all the tickets looking to be purcased
+    of all the tickets looking to be purchased
     """
     price = 0
 
