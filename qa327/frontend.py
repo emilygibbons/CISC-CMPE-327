@@ -438,7 +438,7 @@ def hasEnoughBalance(user, name, quantity):
     If the user has enough balance then return true, if not then return false.
     """
 
-    balance = 5000  # user.balance
+    balance = user.balance
     price = bn.getTicketsPrice(name, quantity)
     price = round(((price*1.35)*1.05), 2)
 
