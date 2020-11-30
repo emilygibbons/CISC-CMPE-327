@@ -59,19 +59,21 @@ def get_ticket(id):
     ticket = Ticket.query.filter_by(id=id).first()
     return ticket
 
-def verify_ticket(quantity,name,price,expiration_date,email):
+
+def verify_ticket(quantity, name, price, expiration_date, email):
     """
     Verifies the ticket(s) exist in the database by the given parameters
     :param quantity: the quantity of the ticket
     :return: a ticket that has the matched ticket id
     """
     tickets = Ticket.query.filter_by(
-            name=name, price=price, date=expiration_date, email=email).all()
+        name=name, price=price, date=expiration_date, email=email).all()
     if len(tickets) == int(quantity):
-       return True
+        return True
     else:
-       return False
-           
+        return False
+
+
 def get_all_tickets():
     """"
     Returns all tickets available to be purchased.
@@ -117,6 +119,23 @@ def buy_ticket(name, quantity):
     return True
 
 
+def getTicketsPrice(name, quantity):
+    """
+    :Param quantity: Quantity of tickets that are being bought.
+    :Param name: The name of the ticket that is being bought.
+
+    Takes the information from the front end, and gets the overall price
+    of all the tickets looking to be purcased
+    """
+    price = 0
+
+    for i in range(int(quantity)):
+        ticket = Ticket.query.filter_by(name=name).first()
+        price += ticket.price
+
+    return price
+
+
 def delete_ticket(quantity, name, price, expiration, email):
     """
     :Param quantity: Quantity of tickets that are being sold.
@@ -136,3 +155,31 @@ def delete_ticket(quantity, name, price, expiration, email):
         db.session.delete(ticket)
         db.session.commit()
     return True
+
+
+def isEnoughTickets(name, quantity):
+    """
+    Verifies the amount of tickets are correct
+    :param quantity: the quantity of the ticket
+    :param name: the name of the ticket
+    :return: true or false
+    """
+    tickets = Ticket.query.filter_by(name=name).all()
+    if len(tickets) >= int(quantity):
+        return True
+    else:
+        return False
+
+
+def ticketExists(name):
+    """
+    Verifies that the tickets exist
+    :param name: the name of the ticket
+    :return: true or false
+    """
+    tickets = Ticket.query.filter_by(name=name).all()
+
+    if tickets:
+        return True
+    else:
+        return False
