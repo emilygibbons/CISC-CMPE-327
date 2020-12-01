@@ -44,8 +44,6 @@ class FrontEndHomePageTest(BaseCase):
     def test_forced_login_page(self, *_):
         # open homepage for it to redirect to /login
         self.open(base_url + '/')
-        # give it one second to redirect
-        self.wait(1)
         # make sure it shows the login page
         self.assert_element('#message')
         self.assert_text('Please login', '#message')
