@@ -61,15 +61,13 @@ class FrontEndHomePageTest(BaseCase):
         self.assert_element("#welcome-header")
         self.assert_text("Welcome test_frontend", "#welcome-header")
 
-
     # Test Case R2.2 - otherwise, show the user registration page
+
     def test_show_register(self, *_):
         # open login
         self.open(base_url + '/login')
         # go to register page
         self.click_link_text('Register')
-        # wait for it to load
-        self.wait(1)
         # verify that you are on register page
         self.assert_element("#message")
         self.assert_text("Please enter info below", '#message')
@@ -84,11 +82,11 @@ class FrontEndHomePageTest(BaseCase):
         self.assert_element('#name')
         self.assert_element('#password2')
 
-
     # TODO Test Case R2.4 - Test case has been taken care of by test R2.1
 
     # Test Case R2.5 - Email, password, password2 all have to satisfy the same requirements as defined in R1
     # Testing all different cases with different boxes empy, corresponding box can be seen in function names
+
     def test_register_everything_not_empty(self, *_):
         # IF NOTHING IS ENTERED
         # open register
@@ -424,7 +422,6 @@ class FrontEndHomePageTest(BaseCase):
         self.type("#password2", "Testfrontend123!")
         # click enter button
         self.click('input[type="submit"]')
-        self.wait(1)
         # make sure it shows the login page
         self.assert_element('#message')
         self.assert_text('Please login', '#message')
