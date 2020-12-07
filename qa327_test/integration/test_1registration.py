@@ -41,7 +41,7 @@ class Registered(BaseCase):
         # This test checks the implemented login/logout feature
         self.register()
         self.login()
-        self.open(base_url)
+        # self.open(base_url)
         self.assert_element("#welcome-header")
         self.assert_text("Welcome test1", "#welcome-header")
 
@@ -50,3 +50,5 @@ class Registered(BaseCase):
         self.register()
         self.assert_element("#message")
         self.assert_text("this email has been ALREADY used", "#message")
+
+
