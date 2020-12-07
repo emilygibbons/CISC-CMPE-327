@@ -164,8 +164,7 @@ def sell_post(user):
         statusMessage = "Error: The quantity of the tickets has to be between 1 and 100."
 
     elif not(checkTicketName(name)):
-        statusMessage = "Error: The name of the ticket has to be between 6 and 60 characters."
-
+        statusMessage = "Error: The name has to alphanumeric, have no spaces in the beginning or end and be between 6 and 60 characters."
     elif not(checkDateFormat(date)):
         statusMessage = "Error: The date has to be in the format 'YYYYMMDD'."
 
@@ -200,7 +199,7 @@ def buy_post(user):
     if (checkTicketExists(name)):
 
         if not(checkTicketName(name)):
-            statusMessage = "Error: The name of the ticket has to be between 6 and 60 characters."
+            statusMessage = "Error: The name has to alphanumeric, have no spaces in the beginning or end and be between 6 and 60 characters."
         elif not(checkQuantity(quantity)):
             statusMessage = "Error: The quantity of the tickets has to be between 1 and 100."
         elif not(bn.isEnoughTickets(name, quantity)):
@@ -242,7 +241,7 @@ def update_post(user):
 
     # Checking validity of the 'new' parameters.
     if not(checkTicketName(name_new)):
-        statusMessage = "Error: The updated name has to aplhanumeric, have no spaces in the begining or end and be between 6 and 60 characters."
+        statusMessage = "Error: The updated name has to alphanumeric, have no spaces in the begining or end and be between 6 and 60 characters."
 
     elif not(checkQuantity(quantity_new)):
         statusMessage = "Error: The updated quantity of tickets needs to be between 1 and 100."
@@ -359,7 +358,7 @@ def checkQuantity(q):
     Takes the quantity and checks if it meets the required specifications.
     If it does then return true, if it doesnt then return false.
     """
-    if bool(0 <= int(q) <= 100):
+    if bool(0 < int(q) <= 100):
         return True
     else:
         return False
