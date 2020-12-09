@@ -1,0 +1,24 @@
+test_update.FrontEndUpdateTesting.test_modifyTicket
+----------------------------------------------------
+Last Page: [WARNING! Browser Not Open!]
+  Browser: chrome
+Timestamp: 1607483455  (Unix Timestamp)
+     Date: Tuesday, December 8, 2020
+     Time: 10:10:55 PM  (EDT, UTC-05:00)
+----------------------------------------------------
+Traceback: File "/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/unittest/case.py", line 593, in run
+    self._callTestMethod(testMethod)
+  File "/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/unittest/case.py", line 550, in _callTestMethod
+    method()
+  File "/Users/adamhirani/Desktop/CISC-CMPE-327/qa327_test/frontend/test_update.py", line 370, in test_modifyTicket
+    self.assert_element("#updateMessage")
+  File "/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/seleniumbase/fixtures/base_case.py", line 5038, in assert_element
+    self.wait_for_element_visible(selector, by=by, timeout=timeout)
+  File "/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/seleniumbase/fixtures/base_case.py", line 3380, in wait_for_element_visible
+    return page_actions.wait_for_element_visible(
+  File "/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/seleniumbase/fixtures/page_actions.py", line 299, in wait_for_element_visible
+    timeout_exception(NoSuchElementException, message)
+  File "/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/seleniumbase/fixtures/page_actions.py", line 117, in timeout_exception
+    raise exc(message)
+Exception: Message: 
+ Element {#updateMessage} was not present after 6 seconds!
