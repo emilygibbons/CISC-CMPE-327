@@ -38,7 +38,7 @@ test_user2 = User(
     email='test_frontend2@test.com',
     name='test_frontend2',
     password=generate_password_hash('Testfrontend123!'),
-    balance=10
+    balance=0
 
 )
 
@@ -171,10 +171,10 @@ class FrontEndBuyTesting(BaseCase):
         self.assert_element("#buyMessage")
         self.assert_text("The quantity of the tickets has to be between 1 and 100.", "#buyMessage")
 
-    # Test Case R6.4 - The ticket name exists in the database and the quantity is more than the quantity requested to buy
+    # Test Case R6.4(a) - The ticket name exists in the database and the quantity is more than the quantity requested to buy
     @patch('qa327.backend.get_user', return_value=test_user)
     @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
-    def test_ticketdoesexist(self, *_):
+    def test_ticketdoesnotexist(self, *_):
         # login as test user
         self.login()
         # Positive case is already covered under the positive case of R6.6
@@ -188,17 +188,23 @@ class FrontEndBuyTesting(BaseCase):
         # make sure it gives proper error message
         self.assert_element("#buyMessage")
         self.assert_text("Ticket does not exist.", "#buyMessage")
-
+    # Test Case R6.4(b) - The ticket name exists in the database and the quantity is more than the quantity requested to buy
+    @patch('qa327.backend.get_user', return_value=test_user)
+    @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
+    @patch('qa327.backend.ticketExists', return_value= True)
+    def test_notenoughtickets(self, *_):
+        # login as test user
+        self.login()
         #NEGATIVE : Quantity requested is more than in stock
         # fill in ticket information
         self.type("#buy-name","ticket1")
-        self.type("#buy-quantity","10")
+        self.type("#buy-quantity","50")
         # click buy button
         self.click('input[id="btn-buy-submit"]')
         # make sure it gives proper error message
         self.assert_element("#buyMessage")
         self.assert_text("The specified quantity of tickets not available.", "#buyMessage")
-
+"""
     # Test Case R6.5 POSITIVE - The user has MORE balance than the ticket price * quantity + service fee (35%) + tax (5%)
     #Positive case is already covered under the positive case of R6.6
 
@@ -244,5 +250,5 @@ class FrontEndBuyTesting(BaseCase):
         # make sure it gives proper success message
         self.assert_element("#buyMessage")
         self.assert_text("Purchase successful", "#buyMessage")
-
+"""
 
