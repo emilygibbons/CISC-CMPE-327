@@ -38,7 +38,7 @@ test_user2 = User(
     email='test_frontend2@test.com',
     name='test_frontend2',
     password=generate_password_hash('Testfrontend123!'),
-    balance=0
+    balance=1 
 
 )
 
@@ -204,15 +204,18 @@ class FrontEndBuyTesting(BaseCase):
         # make sure it gives proper error message
         self.assert_element("#buyMessage")
         self.assert_text("The specified quantity of tickets not available.", "#buyMessage")
-"""
+
     # Test Case R6.5 POSITIVE - The user has MORE balance than the ticket price * quantity + service fee (35%) + tax (5%)
-    #Positive case is already covered under the positive case of R6.6
+    #Positive case is already covered under the positive case of R6.6(b)
 
     # Test Case R6.5 NEGATIVE - The user has LESS balance than the ticket price * quantity + service fee (35%) + tax (5%)
     @patch('qa327.backend.get_user', return_value=test_user2)
     @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
+    @patch('qa327.backend.ticketExists', return_value= True)
+    @patch('qa327.backend.isEnoughTickets', return_value= True)
+    
     def test_notenoughbalance(self, *_):
-        # login as test user
+        # login as test user 2
         self.login2()
         # fill in ticket information
         self.type("#buy-name","ticket1")
@@ -223,9 +226,10 @@ class FrontEndBuyTesting(BaseCase):
         self.assert_element("#buyMessage")
         self.assert_text("Your balance is too low!", "#buyMessage")
 
-    # Test Case R6.6 - For any errors, redirect back to / and show an error message
+    # Test Case R6.6(a) - For any errors, redirect back to / and show an error message
     @patch('qa327.backend.get_user', return_value=test_user)
     @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
+    @patch('qa327.backend.ticketExists', return_value= True)
     def test_ticketredirect(self, *_):
         # login as test user
         self.login()
@@ -241,7 +245,17 @@ class FrontEndBuyTesting(BaseCase):
         self.assert_element("#welcome-header")
         self.assert_text("Welcome test_frontend", "#welcome-header")
 
-        # Negative - no errors
+    # Test Case R6.6(b)- For any errors, redirect back to / and show an error message
+    @patch('qa327.backend.get_user', return_value=test_user)
+    @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
+    @patch('qa327.backend.ticketExists', return_value= True)
+    @patch('qa327.backend.isEnoughTickets', return_value= True)
+
+    # Negative: no errors
+    def test_ticketsuccess(self, *_):
+        # login as test user
+        self.login()
+
         # fill in ticket information
         self.type("#buy-name","ticket1")
         self.type("#buy-quantity","1")
@@ -250,5 +264,5 @@ class FrontEndBuyTesting(BaseCase):
         # make sure it gives proper success message
         self.assert_element("#buyMessage")
         self.assert_text("Purchase successful", "#buyMessage")
-"""
+
 

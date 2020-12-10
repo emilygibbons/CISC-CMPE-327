@@ -1,0 +1,26 @@
+test_buy.FrontEndBuyTesting.test_notenoughbalance
+----------------------------------------------------
+Last Page: http://localhost:8081/buy
+  Browser: chrome
+Timestamp: 1607569762  (Unix Timestamp)
+     Date: Wednesday, December 9, 2020
+     Time: 10:09:22 PM  (Eastern Daylight Time, UTC-05:00)
+----------------------------------------------------
+Traceback: File "c:\users\emily\appdata\local\programs\python\python39-32\lib\unittest\case.py", line 593, in run
+    self._callTestMethod(testMethod)
+  File "c:\users\emily\appdata\local\programs\python\python39-32\lib\unittest\case.py", line 550, in _callTestMethod
+    method()
+  File "c:\users\emily\appdata\local\programs\python\python39-32\lib\unittest\mock.py", line 1337, in patched
+    return func(*newargs, **newkeywargs)
+  File "C:\Users\emily\CISC-CMPE-327\qa327_test\frontend\test_buy.py", line 226, in test_notenoughbalance
+    self.assert_element("#buyMessage")
+  File "c:\users\emily\appdata\local\programs\python\python39-32\lib\site-packages\seleniumbase\fixtures\base_case.py", line 5031, in assert_element
+    self.wait_for_element_visible(selector, by=by, timeout=timeout)
+  File "c:\users\emily\appdata\local\programs\python\python39-32\lib\site-packages\seleniumbase\fixtures\base_case.py", line 3373, in wait_for_element_visible
+    return page_actions.wait_for_element_visible(
+  File "c:\users\emily\appdata\local\programs\python\python39-32\lib\site-packages\seleniumbase\fixtures\page_actions.py", line 299, in wait_for_element_visible
+    timeout_exception(NoSuchElementException, message)
+  File "c:\users\emily\appdata\local\programs\python\python39-32\lib\site-packages\seleniumbase\fixtures\page_actions.py", line 117, in timeout_exception
+    raise exc(message)
+Exception: Message: 
+ Element {#buyMessage} was not present after 6 seconds!
