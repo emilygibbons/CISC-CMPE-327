@@ -213,6 +213,7 @@ class FrontEndBuyTesting(BaseCase):
     @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
     @patch('qa327.backend.ticketExists', return_value= True)
     @patch('qa327.backend.isEnoughTickets', return_value= True)
+    @patch('qa327.backend.getTicketsPrice', return_value= 100)
     
     def test_notenoughbalance(self, *_):
         # login as test user 2

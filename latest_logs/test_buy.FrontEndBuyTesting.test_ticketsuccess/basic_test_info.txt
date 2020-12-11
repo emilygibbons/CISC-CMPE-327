@@ -1,10 +1,10 @@
-test_buy.FrontEndBuyTesting.test_notenoughbalance
+test_buy.FrontEndBuyTesting.test_ticketsuccess
 ----------------------------------------------------
 Last Page: http://localhost:8081/buy
   Browser: chrome
-Timestamp: 1607569762  (Unix Timestamp)
-     Date: Wednesday, December 9, 2020
-     Time: 10:09:22 PM  (Eastern Daylight Time, UTC-05:00)
+Timestamp: 1607727362  (Unix Timestamp)
+     Date: Friday, December 11, 2020
+     Time: 5:56:02 PM  (Eastern Daylight Time, UTC-05:00)
 ----------------------------------------------------
 Traceback: File "c:\users\emily\appdata\local\programs\python\python39-32\lib\unittest\case.py", line 593, in run
     self._callTestMethod(testMethod)
@@ -12,7 +12,7 @@ Traceback: File "c:\users\emily\appdata\local\programs\python\python39-32\lib\un
     method()
   File "c:\users\emily\appdata\local\programs\python\python39-32\lib\unittest\mock.py", line 1337, in patched
     return func(*newargs, **newkeywargs)
-  File "C:\Users\emily\CISC-CMPE-327\qa327_test\frontend\test_buy.py", line 226, in test_notenoughbalance
+  File "C:\Users\emily\CISC-CMPE-327\qa327_test\frontend\test_buy.py", line 266, in test_ticketsuccess
     self.assert_element("#buyMessage")
   File "c:\users\emily\appdata\local\programs\python\python39-32\lib\site-packages\seleniumbase\fixtures\base_case.py", line 5031, in assert_element
     self.wait_for_element_visible(selector, by=by, timeout=timeout)
