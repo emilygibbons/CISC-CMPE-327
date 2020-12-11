@@ -8,6 +8,10 @@
 *$py.class
 *.log
 
+db.sqlite
+
+mysql_data 
+
 *.pot
 
 *.pyc
