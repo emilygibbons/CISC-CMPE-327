@@ -313,7 +313,8 @@ class FrontEndUpdateTesting(BaseCase):
     # Test Case R5.7 NEGATIVE- For any errors, redirect back to / and show an error message
     @patch('qa327.backend.get_user', return_value=test_user)
     @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
-    def test_ticketerror(self, *_):
+    
+    def test_ticketsuccess(self, *_):
         # login as test user
         self.login()  
         # NEGATIVE CASE: no errors so post update successfully
@@ -332,4 +333,4 @@ class FrontEndUpdateTesting(BaseCase):
         # make sure it gives proper success message
         self.assert_element("#updateMessage")
         self.assert_text("Listing update successful", "#updateMessage")
-"""   
+"""  
