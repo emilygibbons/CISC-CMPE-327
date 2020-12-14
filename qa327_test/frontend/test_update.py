@@ -309,11 +309,14 @@ class FrontEndUpdateTesting(BaseCase):
         # ensure it redirects to home page (/)
         self.assert_element("#welcome-header")
         self.assert_text("Welcome test_frontend", "#welcome-header")
-"""
+
     # Test Case R5.7 NEGATIVE- For any errors, redirect back to / and show an error message
     @patch('qa327.backend.get_user', return_value=test_user)
     @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
-    
+    #@patch('qa327.backend.ticketExists', return_value= True)
+    #@patch('qa327.backend.verify_ticket', return_value= True)
+    #@patch('qa327.backend.sell_ticket', return_value= True)
+    #@patch('qa327.backend.delete_ticket', return_value= True)
     def test_ticketsuccess(self, *_):
         # login as test user
         self.login()  
@@ -333,4 +336,4 @@ class FrontEndUpdateTesting(BaseCase):
         # make sure it gives proper success message
         self.assert_element("#updateMessage")
         self.assert_text("Listing update successful", "#updateMessage")
-"""  
+  
