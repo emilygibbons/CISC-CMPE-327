@@ -313,10 +313,7 @@ class FrontEndUpdateTesting(BaseCase):
     # Test Case R5.7 NEGATIVE- For any errors, redirect back to / and show an error message
     @patch('qa327.backend.get_user', return_value=test_user)
     @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
-    #@patch('qa327.backend.ticketExists', return_value= True)
-    #@patch('qa327.backend.verify_ticket', return_value= True)
-    #@patch('qa327.backend.sell_ticket', return_value= True)
-    #@patch('qa327.backend.delete_ticket', return_value= True)
+    
     def test_ticketsuccess(self, *_):
         # login as test user
         self.login()  
